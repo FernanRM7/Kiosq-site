@@ -1,0 +1,53 @@
+pre-commit:
+  jobs:
+    - run: npx ultracite fix
+      glob:
+        - "**/*.js"
+        - "**/*.jsx"
+        - "**/*.ts"
+        - "**/*.tsx"
+        - "**/*.json"
+        - "**/*.jsonc"
+        - "**/*.css"
+      stage_fixed: true
+
+commit-msg:
+  commands:
+    validate-format:
+      run: |
+        MSG=$(cat {1})
+        PATTERN="^(feat|fix|chore)(\(.+\))?: .{10,}$"
+        if ! echo "$MSG" | grep -qE "$PATTERN"; then
+          echo ""
+          echo "  Formato de commit inválido."
+          echo ""
+          echo "  Formato esperado:"
+          echo "    tipo: descripción (mínimo 10 caracteres)"
+          echo ""
+          echo "  Tipos válidos:"
+          echo "    feat      Nueva funcionalidad"
+          echo "    fix       Corrección de bug"
+          echo "    chore     Tareas de mantenimiento"
+          echo ""
+          exit 1
+        fi
+
+pre-push:
+  commands:
+    validate-branch:
+      run: |
+        BRANCH=$(git rev-parse --abbrev-ref HEAD)
+        PATTERN="^(feat|fix|chore)/.+"
+        EXCLUDED="^(main|master|develop|staging)$"
+        if echo "$BRANCH" | grep -qE "$EXCLUDED"; then
+          exit 0
+        fi
+        if ! echo "$BRANCH" | grep -qE "$PATTERN"; then
+          echo ""
+          echo "  Nombre de rama inválido: '$BRANCH'"
+          echo ""
+          echo "  Formato esperado:"
+          echo "    tipo/descripcion-en-kebab-case"
+          echo ""
+          exit 1
+        fi

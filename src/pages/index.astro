@@ -1,17 +1,16 @@
 ---
-
+import BaseLayout from '@/layouts/baseLayout.astro';
+import { Button } from "@/components/ui/button";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+    <div class="py-16 space-y-6">
+        <h1 class="text-4xl font-normal">Astro</h1>
+
+        <p class="text-base">
+            Web de Kiosq POS
+        </p>
+
+        <Button className="font-mono font-normal">REQUEST A DEMO</Button>
+    </div>
+</BaseLayout>
