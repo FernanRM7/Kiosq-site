@@ -1,43 +1,60 @@
-# Astro Starter Kit: Minimal
+# Kiosq Site
+
+Sitio web del proyecto Kiosq construido con Astro.
+
+## 🚀 Inicio Rápido
+
+### Clonar el repositorio
 
 ```sh
-bun create astro@latest -- --template minimal
+git clone <repository-url>
+cd Kiosq-site
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+> **Nota:** Al clonar el repositorio, lefthook configurará automáticamente los hooks de Git. Deberías ver el mensaje: `sync hooks: ✔️ (pre-push, pre-commit, commit-msg)`
 
-## 🚀 Project Structure
+### Instalar dependencias
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```sh
+npm install
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Después de instalar, lefthook sincronizará los hooks automáticamente. Verifica que veas el mensaje de confirmación.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## 📦 Comandos
 
-Any static assets, like images, can be placed in the `public/` directory.
+| Comando         | Acción                                            |
+| :-------------- | :------------------------------------------------ |
+| `npm install`   | Instala dependencias                              |
+| `npm dev`       | Inicia servidor de desarrollo en `localhost:4321` |
+| `npm build`     | Construye el sitio para producción en `./dist/`   |
+| `npm preview`   | Previsualiza la build localmente                  |
+| `npm astro ...` | Ejecuta comandos CLI de Astro                     |
 
-## 🧞 Commands
+## 🔧 Configuración
 
-All commands are run from the root of the project, from a terminal:
+### Lefthook
 
-| Command               | Action                                           |
-| :-------------------- | :----------------------------------------------- |
-| `bun install`         | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
+Los commits y push están validados automáticamente mediante lefthook.
 
-## 👀 Want to learn more?
+Lefthook está configurado para ejecutar validaciones automáticas en los siguientes hooks:
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+| Hook         | Acción                                                    |
+| :----------- | :-------------------------------------------------------- |
+| `pre-commit` | Ejecuta `npx ultracite fix` en archivos JS, TS, CSS, JSON |
+| `commit-msg` | Valida el formato del mensaje (feat/fix/chore + 10 chars) |
+| `pre-push`   | Valida que el nombre de la rama siga el patrón esperado   |
+
+**Formatos esperados:**
+
+- **Commits:** `tipo: descripción` (mínimo 10 caracteres)
+  - Tipos válidos: `feat`, `fix`, `chore`
+  - Ejemplo: `feat: agregar nuevo componente de validación`
+
+- **Ramas:** `tipo/descripcion-en-kebab-case`
+  - Ejemplo: `feat/nuevo-componente-boton`
+  - Ramas protegidas: `main`, `master`, `develop`, `staging`
+
+## 👨‍💻 Para Agentes de IA
+
+**Importante:** Lee el archivo [`agent.md`](./agent.md) antes de realizar cambios en el código. Contiene guías esenciales sobre estándares de codificación y buenas prácticas del proyecto.
