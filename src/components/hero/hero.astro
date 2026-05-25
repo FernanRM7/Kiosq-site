@@ -5,18 +5,29 @@ import HeroImage from './heroImage.astro';
 interface Props {
   imageSrc?: string;
   imageAlt?: string;
+  tabs?: string[];
 }
 
-const { imageSrc, imageAlt = 'Kiosq Dashboard' } = Astro.props;
+const {
+  imageSrc,
+  imageAlt = 'Kiosq Dashboard',
+  tabs = ['Inventario con escaneo', 'Registro de ventas', 'Pagos', 'Proveedores']
+} = Astro.props;
 ---
 
-<section class="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-  <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
+<section class="mx-auto w-full px-4 py-16 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-5xl space-y-12 lg:space-y-16">
+    <!-- Hero Text Section -->
     <div class="hero-text-fade">
       <HeroText />
     </div>
+
+    <!-- Divider -->
+    <div class="h-px bg-border" />
+
+    <!-- Hero Image Section -->
     <div class="hero-image-fade">
-      <HeroImage src={imageSrc} alt={imageAlt} />
+      <HeroImage src={imageSrc} alt={imageAlt} tabs={tabs} />
     </div>
   </div>
 </section>
@@ -33,22 +44,22 @@ const { imageSrc, imageAlt = 'Kiosq Dashboard' } = Astro.props;
   @keyframes heroTextFade {
     0% {
       opacity: 0;
-      transform: translateX(-20px);
+      transform: translateY(-20px);
     }
     100% {
       opacity: 1;
-      transform: translateX(0);
+      transform: translateY(0);
     }
   }
 
   @keyframes heroImageFade {
     0% {
       opacity: 0;
-      transform: translateX(20px);
+      transform: translateY(20px);
     }
     100% {
       opacity: 1;
-      transform: translateX(0);
+      transform: translateY(0);
     }
   }
 

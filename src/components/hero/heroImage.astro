@@ -2,17 +2,41 @@
 interface Props {
   src?: string;
   alt?: string;
+  tabs?: string[];
 }
 
-const { src = 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800&q=80', alt = 'Kiosq Dashboard' } = Astro.props;
+const {
+  src = 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=1000&q=80',
+  alt = 'Kiosq Dashboard',
+  tabs = ['Inventario con escaneo', 'Registro de ventas', 'Pagos', 'Proveedores']
+} = Astro.props;
 ---
 
-<div class="relative">
-  <div class="absolute inset-0 bg-gradient-to-br from-blue-500 via-blue-600 to-teal-500 rounded-lg opacity-20 blur-3xl" aria-hidden="true"></div>
-  <img
-    src={src}
-    alt={alt}
-    class="relative w-full h-auto rounded-lg shadow-2xl"
-  />
-  <div class="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-white via-white to-transparent rounded-t-lg pointer-events-none"></div>
+<div class="w-full space-y-4">
+  <!-- Tabs/Features -->
+  <div class="border-b border-border">
+    <div class="grid grid-cols-4 text-center text-sm font-medium text-muted-foreground">
+      {tabs.map((tab) => (
+        <div class="border-r border-border px-4 py-3 last:border-r-0">
+          {tab}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Image with gradient background -->
+  <div class="relative overflow-hidden rounded-lg bg-gradient-to-br from-blue-500 via-blue-600 to-teal-500 py-8">
+    <div class="relative flex items-center justify-center">
+      <img
+        src={src}
+        alt={alt}
+        class="relative w-full max-w-4xl h-auto rounded-lg shadow-2xl mx-auto"
+      />
+    </div>
+  </div>
+
+  <!-- Trust text -->
+  <p class="text-center text-sm text-muted-foreground py-6">
+    Con la confianza de más de 20 dueños y gerentes de comercios independientes.
+  </p>
 </div>
