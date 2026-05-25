@@ -41,6 +41,9 @@
     "prisma-next": "^0.11.0",
     "ultracite": "7.7.0"
   },
+  "overrides": {
+    "vite": "^7.1.11"
+  },
   "engines": {
     "node": ">=22.12.0"
   }
