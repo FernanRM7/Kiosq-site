@@ -1,0 +1,38 @@
+---
+interface Props {
+  tabs?: string[];
+}
+
+const {
+  tabs = ['Inventario con escaneo', 'Registro de ventas', 'Pagos', 'Proveedores']
+} = Astro.props;
+---
+
+<div class="w-full space-y-4">
+  <!-- Tabs/Features -->
+  <div class="border-b border-border">
+    <div class="grid grid-cols-4 text-center text-sm font-body text-muted-foreground">
+      {tabs.map((tab) => (
+        <div class="border-r border-border px-4 py-3 last:border-r-0">
+          {tab}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Image with gradient background -->
+  <div class="relative overflow-hidden rounded-lg bg-gradient-to-br from-primary via-blue-600 to-teal-500 py-8">
+    <div class="relative flex items-center justify-center">
+      <img
+        src="/references/Image Hero.jpg"
+        alt="Kiosq Dashboard"
+        class="relative w-full max-w-4xl h-auto rounded-lg shadow-2xl mx-auto"
+      />
+    </div>
+  </div>
+
+  <!-- Trust text -->
+  <p class="text-center text-sm text-muted-foreground py-6 font-body">
+    Con la confianza de más de 20 dueños y gerentes de comercios independientes.
+  </p>
+</div>

@@ -1,16 +1,8 @@
 ---
-import BaseLayout from '@/layouts/baseLayout.astro';
-import { Button } from "@/components/ui/button";
+import Hero from '@/components/hero/hero.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
 <BaseLayout>
-    <div class="py-16 space-y-6">
-        <h1 class="text-4xl font-normal">Astro</h1>
-
-        <p class="text-base">
-            Web de Kiosq POS
-        </p>
-
-        <Button className="font-mono font-normal">REQUEST A DEMO</Button>
-    </div>
+  <Hero />
 </BaseLayout>
