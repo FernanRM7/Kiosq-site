@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Footer from '../components/footer.astro';
+import Navbar from '../components/Navbar.astro';
 
 interface Props {
   title?: string;
@@ -32,6 +33,7 @@ const { title = 'Kiosqo', fullWidth = false } = Astro.props;
         <main class="grow">
           <div class="mx-auto px-(--spacing-container) sm:px-6 lg:px-8 w-full"
               style={`max-width: var(--container-width)`}>
+            <Navbar />
             <slot />
           </div>
         </main>
