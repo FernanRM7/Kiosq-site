@@ -1,0 +1,52 @@
+---
+import WaitlistBrand from '@/components/waitlist/waitlistBrand.astro';
+import { waitlistNavigationLinks } from '@/components/waitlist/waitlistContent';
+---
+
+<header class="border-b border-border bg-background/95 backdrop-blur-sm">
+  <div
+    class="mx-auto flex h-32 w-full max-w-(--container-width) items-center justify-between gap-6 px-4 sm:px-6 lg:px-8"
+  >
+    <WaitlistBrand />
+
+    <nav class="hidden lg:block" aria-label="Navegación principal">
+      <ul class="flex items-center gap-12 text-[2rem] font-medium">
+        {
+          waitlistNavigationLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="inline-flex items-center gap-2 transition-colors duration-300 hover:text-primary focus-visible:text-primary focus-visible:outline-none"
+              >
+                <span>{link.label}</span>
+                {link.hasSubmenu && (
+                  <svg
+                    class="mt-1 size-4 shrink-0"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="m3.5 6.5 4.5 4 4.5-4"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                )}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <a
+      href="#waitlist-form"
+      class="inline-flex h-16 items-center justify-center bg-primary px-8 font-mono text-xl uppercase tracking-widest text-primary-foreground transition-transform duration-300 hover:-translate-y-0.5 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+    >
+      Join waitlist
+    </a>
+  </div>
+</header>
