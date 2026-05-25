@@ -1,13 +1,9 @@
 ---
 interface Props {
-  src?: string;
-  alt?: string;
   tabs?: string[];
 }
 
 const {
-  src = 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=1000&q=80',
-  alt = 'Kiosq Dashboard',
   tabs = ['Inventario con escaneo', 'Registro de ventas', 'Pagos', 'Proveedores']
 } = Astro.props;
 ---
@@ -15,7 +11,7 @@ const {
 <div class="w-full space-y-4">
   <!-- Tabs/Features -->
   <div class="border-b border-border">
-    <div class="grid grid-cols-4 text-center text-sm font-medium text-muted-foreground">
+    <div class="grid grid-cols-4 text-center text-sm font-body text-muted-foreground">
       {tabs.map((tab) => (
         <div class="border-r border-border px-4 py-3 last:border-r-0">
           {tab}
@@ -25,18 +21,18 @@ const {
   </div>
 
   <!-- Image with gradient background -->
-  <div class="relative overflow-hidden rounded-lg bg-gradient-to-br from-blue-500 via-blue-600 to-teal-500 py-8">
+  <div class="relative overflow-hidden rounded-lg bg-gradient-to-br from-primary via-blue-600 to-teal-500 py-8">
     <div class="relative flex items-center justify-center">
       <img
-        src={src}
-        alt={alt}
+        src="/references/Image Hero.jpg"
+        alt="Kiosq Dashboard"
         class="relative w-full max-w-4xl h-auto rounded-lg shadow-2xl mx-auto"
       />
     </div>
   </div>
 
   <!-- Trust text -->
-  <p class="text-center text-sm text-muted-foreground py-6">
+  <p class="text-center text-sm text-muted-foreground py-6 font-body">
     Con la confianza de más de 20 dueños y gerentes de comercios independientes.
   </p>
 </div>

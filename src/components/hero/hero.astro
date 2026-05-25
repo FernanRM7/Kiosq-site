@@ -3,20 +3,16 @@ import HeroText from './heroText.astro';
 import HeroImage from './heroImage.astro';
 
 interface Props {
-  imageSrc?: string;
-  imageAlt?: string;
   tabs?: string[];
 }
 
 const {
-  imageSrc,
-  imageAlt = 'Kiosq Dashboard',
   tabs = ['Inventario con escaneo', 'Registro de ventas', 'Pagos', 'Proveedores']
 } = Astro.props;
 ---
 
 <section class="mx-auto w-full px-4 py-16 sm:px-6 lg:px-8">
-  <div class="mx-auto max-w-5xl space-y-12 lg:space-y-16">
+  <div class="mx-auto max-w-(--container-width) space-y-12 lg:space-y-16">
     <!-- Hero Text Section -->
     <div class="hero-text-fade">
       <HeroText />
@@ -27,7 +23,7 @@ const {
 
     <!-- Hero Image Section -->
     <div class="hero-image-fade">
-      <HeroImage src={imageSrc} alt={imageAlt} tabs={tabs} />
+      <HeroImage tabs={tabs} />
     </div>
   </div>
 </section>
