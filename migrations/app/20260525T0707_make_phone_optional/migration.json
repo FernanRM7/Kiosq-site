@@ -1,0 +1,13 @@
+{
+  "from": null,
+  "to": "sha256:c77620a3a08aaa9b71dc944efeff321c715b3218ce0ee3b66dda355074c3d752",
+  "hints": {
+    "used": [],
+    "applied": [],
+    "plannerVersion": "2.0.0"
+  },
+  "labels": [],
+  "createdAt": "2026-05-25T07:07:13.269Z",
+  "providedInvariants": [],
+  "migrationHash": "sha256:2529b7ba2f803bab3d22b246218cda7fa39c6dc1b04fc8c5174cdf3110c77862"
+}

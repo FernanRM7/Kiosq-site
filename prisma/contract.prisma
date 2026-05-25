@@ -19,3 +19,28 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt temporal.updatedAt()
 }
+
+model ContactForm {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+  updatedAt temporal.updatedAt()
+
+  @@index([email])
+  @@index([createdAt])
+}
+
+model Waitlist {
+  id        Int      @id @default(autoincrement())
+  email     String
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+  updatedAt temporal.updatedAt()
+
+  @@index([email])
+  @@index([createdAt])
+}

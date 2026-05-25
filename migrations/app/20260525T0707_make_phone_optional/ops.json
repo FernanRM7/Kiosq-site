@@ -1,0 +1,354 @@
+[
+  {
+    "id": "table.contactForm",
+    "label": "Create table \"contactForm\"",
+    "summary": "Creates table \"contactForm\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "__unbound__",
+        "objectType": "table",
+        "name": "contactForm"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"contactForm\" does not exist",
+        "sql": "SELECT to_regclass('\"contactForm\"') IS NULL"
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"contactForm\"",
+        "sql": "CREATE TABLE \"contactForm\" (\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"email\" text NOT NULL,\n  \"id\" SERIAL NOT NULL,\n  \"message\" text NOT NULL,\n  \"name\" text NOT NULL,\n  \"phone\" text,\n  \"status\" text DEFAULT 'pending' NOT NULL,\n  \"updatedAt\" timestamptz NOT NULL,\n  PRIMARY KEY (\"id\")\n)"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"contactForm\" exists",
+        "sql": "SELECT to_regclass('\"contactForm\"') IS NOT NULL"
+      }
+    ]
+  },
+  {
+    "id": "table.post",
+    "label": "Create table \"post\"",
+    "summary": "Creates table \"post\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "__unbound__",
+        "objectType": "table",
+        "name": "post"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"post\" does not exist",
+        "sql": "SELECT to_regclass('\"post\"') IS NULL"
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"post\"",
+        "sql": "CREATE TABLE \"post\" (\n  \"authorId\" int4 NOT NULL,\n  \"content\" text,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"id\" SERIAL NOT NULL,\n  \"title\" text NOT NULL,\n  \"updatedAt\" timestamptz NOT NULL,\n  PRIMARY KEY (\"id\")\n)"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"post\" exists",
+        "sql": "SELECT to_regclass('\"post\"') IS NOT NULL"
+      }
+    ]
+  },
+  {
+    "id": "table.user",
+    "label": "Create table \"user\"",
+    "summary": "Creates table \"user\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "__unbound__",
+        "objectType": "table",
+        "name": "user"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"user\" does not exist",
+        "sql": "SELECT to_regclass('\"user\"') IS NULL"
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"user\"",
+        "sql": "CREATE TABLE \"user\" (\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"email\" text NOT NULL,\n  \"id\" SERIAL NOT NULL,\n  \"name\" text,\n  \"updatedAt\" timestamptz NOT NULL,\n  \"username\" text,\n  PRIMARY KEY (\"id\")\n)"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"user\" exists",
+        "sql": "SELECT to_regclass('\"user\"') IS NOT NULL"
+      }
+    ]
+  },
+  {
+    "id": "table.waitlist",
+    "label": "Create table \"waitlist\"",
+    "summary": "Creates table \"waitlist\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "__unbound__",
+        "objectType": "table",
+        "name": "waitlist"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"waitlist\" does not exist",
+        "sql": "SELECT to_regclass('\"waitlist\"') IS NULL"
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"waitlist\"",
+        "sql": "CREATE TABLE \"waitlist\" (\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"email\" text NOT NULL,\n  \"id\" SERIAL NOT NULL,\n  \"status\" text DEFAULT 'pending' NOT NULL,\n  \"updatedAt\" timestamptz NOT NULL,\n  PRIMARY KEY (\"id\")\n)"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"waitlist\" exists",
+        "sql": "SELECT to_regclass('\"waitlist\"') IS NOT NULL"
+      }
+    ]
+  },
+  {
+    "id": "unique.user.user_email_key",
+    "label": "Add unique constraint on \"user\" (email)",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "__unbound__",
+        "objectType": "unique",
+        "name": "user_email_key",
+        "table": "user"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"user_email_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (\n  SELECT 1 FROM pg_constraint c\n  JOIN pg_namespace n ON c.connamespace = n.oid\n  WHERE c.conname = 'user_email_key'\n  AND n.nspname = current_schema()\n  AND c.conrelid = to_regclass('\"user\"')\n)"
+      }
+    ],
+    "execute": [
+      {
+        "description": "add unique constraint \"user_email_key\"",
+        "sql": "ALTER TABLE \"user\" ADD CONSTRAINT \"user_email_key\" UNIQUE (\"email\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"user_email_key\" exists",
+        "sql": "SELECT EXISTS (\n  SELECT 1 FROM pg_constraint c\n  JOIN pg_namespace n ON c.connamespace = n.oid\n  WHERE c.conname = 'user_email_key'\n  AND n.nspname = current_schema()\n  AND c.conrelid = to_regclass('\"user\"')\n)"
+      }
+    ]
+  },
+  {
+    "id": "index.contactForm.contactForm_email_idx",
+    "label": "Create index \"contactForm_email_idx\" on \"contactForm\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "__unbound__",
+        "objectType": "index",
+        "name": "contactForm_email_idx",
+        "table": "contactForm"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"contactForm_email_idx\" does not exist",
+        "sql": "SELECT to_regclass('\"contactForm_email_idx\"') IS NULL"
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"contactForm_email_idx\"",
+        "sql": "CREATE INDEX \"contactForm_email_idx\" ON \"contactForm\" (\"email\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"contactForm_email_idx\" exists",
+        "sql": "SELECT to_regclass('\"contactForm_email_idx\"') IS NOT NULL"
+      }
+    ]
+  },
+  {
+    "id": "index.contactForm.contactForm_createdAt_idx",
+    "label": "Create index \"contactForm_createdAt_idx\" on \"contactForm\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "__unbound__",
+        "objectType": "index",
+        "name": "contactForm_createdAt_idx",
+        "table": "contactForm"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"contactForm_createdAt_idx\" does not exist",
+        "sql": "SELECT to_regclass('\"contactForm_createdAt_idx\"') IS NULL"
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"contactForm_createdAt_idx\"",
+        "sql": "CREATE INDEX \"contactForm_createdAt_idx\" ON \"contactForm\" (\"createdAt\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"contactForm_createdAt_idx\" exists",
+        "sql": "SELECT to_regclass('\"contactForm_createdAt_idx\"') IS NOT NULL"
+      }
+    ]
+  },
+  {
+    "id": "index.post.post_authorId_idx",
+    "label": "Create index \"post_authorId_idx\" on \"post\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "__unbound__",
+        "objectType": "index",
+        "name": "post_authorId_idx",
+        "table": "post"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"post_authorId_idx\" does not exist",
+        "sql": "SELECT to_regclass('\"post_authorId_idx\"') IS NULL"
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"post_authorId_idx\"",
+        "sql": "CREATE INDEX \"post_authorId_idx\" ON \"post\" (\"authorId\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"post_authorId_idx\" exists",
+        "sql": "SELECT to_regclass('\"post_authorId_idx\"') IS NOT NULL"
+      }
+    ]
+  },
+  {
+    "id": "index.waitlist.waitlist_email_idx",
+    "label": "Create index \"waitlist_email_idx\" on \"waitlist\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "__unbound__",
+        "objectType": "index",
+        "name": "waitlist_email_idx",
+        "table": "waitlist"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"waitlist_email_idx\" does not exist",
+        "sql": "SELECT to_regclass('\"waitlist_email_idx\"') IS NULL"
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"waitlist_email_idx\"",
+        "sql": "CREATE INDEX \"waitlist_email_idx\" ON \"waitlist\" (\"email\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"waitlist_email_idx\" exists",
+        "sql": "SELECT to_regclass('\"waitlist_email_idx\"') IS NOT NULL"
+      }
+    ]
+  },
+  {
+    "id": "index.waitlist.waitlist_createdAt_idx",
+    "label": "Create index \"waitlist_createdAt_idx\" on \"waitlist\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "__unbound__",
+        "objectType": "index",
+        "name": "waitlist_createdAt_idx",
+        "table": "waitlist"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"waitlist_createdAt_idx\" does not exist",
+        "sql": "SELECT to_regclass('\"waitlist_createdAt_idx\"') IS NULL"
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"waitlist_createdAt_idx\"",
+        "sql": "CREATE INDEX \"waitlist_createdAt_idx\" ON \"waitlist\" (\"createdAt\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"waitlist_createdAt_idx\" exists",
+        "sql": "SELECT to_regclass('\"waitlist_createdAt_idx\"') IS NOT NULL"
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.post.post_authorId_fkey",
+    "label": "Add foreign key \"post_authorId_fkey\" on \"post\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "__unbound__",
+        "objectType": "foreignKey",
+        "name": "post_authorId_fkey",
+        "table": "post"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"post_authorId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (\n  SELECT 1 FROM pg_constraint c\n  JOIN pg_namespace n ON c.connamespace = n.oid\n  WHERE c.conname = 'post_authorId_fkey'\n  AND n.nspname = current_schema()\n  AND c.conrelid = to_regclass('\"post\"')\n)"
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"post_authorId_fkey\"",
+        "sql": "ALTER TABLE \"post\"\nADD CONSTRAINT \"post_authorId_fkey\"\nFOREIGN KEY (\"authorId\")\nREFERENCES \"user\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"post_authorId_fkey\" exists",
+        "sql": "SELECT EXISTS (\n  SELECT 1 FROM pg_constraint c\n  JOIN pg_namespace n ON c.connamespace = n.oid\n  WHERE c.conname = 'post_authorId_fkey'\n  AND n.nspname = current_schema()\n  AND c.conrelid = to_regclass('\"post\"')\n)"
+      }
+    ]
+  }
+]
