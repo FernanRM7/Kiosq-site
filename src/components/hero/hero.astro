@@ -1,0 +1,61 @@
+---
+import HeroText from './heroText.astro';
+import HeroImage from './heroImage.astro';
+
+interface Props {
+  imageSrc?: string;
+  imageAlt?: string;
+}
+
+const { imageSrc, imageAlt = 'Kiosq Dashboard' } = Astro.props;
+---
+
+<section class="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+  <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
+    <div class="hero-text-fade">
+      <HeroText />
+    </div>
+    <div class="hero-image-fade">
+      <HeroImage src={imageSrc} alt={imageAlt} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-text-fade {
+    animation: heroTextFade 800ms ease both;
+  }
+
+  .hero-image-fade {
+    animation: heroImageFade 800ms ease both 200ms;
+  }
+
+  @keyframes heroTextFade {
+    0% {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes heroImageFade {
+    0% {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-text-fade,
+    .hero-image-fade {
+      animation: none;
+    }
+  }
+</style>

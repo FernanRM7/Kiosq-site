@@ -1,0 +1,18 @@
+---
+interface Props {
+  src?: string;
+  alt?: string;
+}
+
+const { src = 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800&q=80', alt = 'Kiosq Dashboard' } = Astro.props;
+---
+
+<div class="relative">
+  <div class="absolute inset-0 bg-gradient-to-br from-blue-500 via-blue-600 to-teal-500 rounded-lg opacity-20 blur-3xl" aria-hidden="true"></div>
+  <img
+    src={src}
+    alt={alt}
+    class="relative w-full h-auto rounded-lg shadow-2xl"
+  />
+  <div class="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-white via-white to-transparent rounded-t-lg pointer-events-none"></div>
+</div>
