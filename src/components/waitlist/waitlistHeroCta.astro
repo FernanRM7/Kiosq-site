@@ -1,0 +1,63 @@
+<section
+  id="waitlist"
+  class="flex min-h-screen items-center justify-center px-4 py-16 text-center sm:px-6 lg:px-8"
+>
+  <div class="waitlist-fade-up w-full max-w-2xl space-y-8">
+    <h1 class="text-balance text-4xl leading-tight font-normal sm:text-5xl">
+      ¿Listo para gestionar sin complicaciones?
+    </h1>
+
+    <p class="text-lg text-muted-foreground sm:text-xl">
+      Regístrate y sé de los primeros dueños de negocios que transformarán su
+      operación desde el inicio.
+    </p>
+
+    <form
+      class="mx-auto flex w-full max-w-xl flex-col gap-3 sm:flex-row"
+      id="waitlist-inline-form"
+      action="#waitlist-inline-form"
+      method="get"
+    >
+      <label for="waitlist-inline-email" class="sr-only">Correo electrónico</label>
+      <input
+        id="waitlist-inline-email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        required
+        placeholder="Ingresa tu correo"
+        class="h-12 flex-1 border border-border bg-secondary px-4 text-base text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/40"
+      />
+      <button
+        type="submit"
+        class="h-12 bg-primary px-8 font-mono text-base text-primary-foreground transition-transform duration-300 hover:-translate-y-0.5 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 whitespace-nowrap"
+      >
+        Unirse
+      </button>
+    </form>
+  </div>
+</section>
+
+<style>
+  .waitlist-fade-up {
+    animation: waitlistFadeUp 700ms ease both;
+  }
+
+  @keyframes waitlistFadeUp {
+    0% {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .waitlist-fade-up {
+      animation: none;
+    }
+  }
+</style>
