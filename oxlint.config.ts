@@ -18,7 +18,7 @@ export default defineConfig({
     es2022: true,
   },
   extends: [core, astro, react],
-  ignorePatterns: ["dist/**", ".astro/**"],
+  ignorePatterns: ["dist/**", ".astro/**", "prisma/**", "migrations/**"],
 
   overrides: [
     // en tests: any y console son aceptables

@@ -12,31 +12,95 @@
       operación desde el inicio.
     </p>
 
-    <form
-      class="mx-auto flex w-full max-w-xl flex-col gap-3 sm:flex-row"
-      id="waitlist-inline-form"
-      action="#waitlist-inline-form"
-      method="get"
-    >
-      <label for="waitlist-inline-email" class="sr-only">Correo electrónico</label>
-      <input
-        id="waitlist-inline-email"
-        name="email"
-        type="email"
-        autocomplete="email"
-        required
-        placeholder="Ingresa tu correo"
-        class="h-12 flex-1 border border-border bg-secondary px-4 text-base text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/40"
-      />
-      <button
-        type="submit"
-        class="h-12 bg-primary px-8 font-mono text-base text-primary-foreground transition-transform duration-300 hover:-translate-y-0.5 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 whitespace-nowrap"
+    <div class="mx-auto w-full max-w-xl text-left space-y-4">
+      <form
+        class="flex w-full flex-col gap-3 sm:flex-row"
+        id="waitlist-inline-form"
       >
-        Unirse
-      </button>
-    </form>
+        <label for="waitlist-inline-email" class="sr-only">Correo electrónico</label>
+        <input
+          id="waitlist-inline-email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          required
+          placeholder="Ingresa tu correo"
+          class="h-12 flex-1 border border-border bg-secondary px-4 text-base text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/40"
+        />
+        <button
+          id="waitlist-submit-btn"
+          type="submit"
+          class="h-12 bg-primary px-8 font-mono text-base text-primary-foreground transition-transform duration-300 hover:-translate-y-0.5 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+        >
+          Unirse
+        </button>
+      </form>
+
+      <!-- Mensajes de Estado con Estilo Premium y Micro-animaciones -->
+      <div id="waitlist-status" class="hidden transition-all duration-300">
+        <div id="waitlist-success" class="hidden rounded-lg border border-green-200 bg-green-50/50 p-4 text-sm text-green-800 backdrop-blur-sm">
+          ¡Tu correo ha sido registrado con éxito! Te avisaremos tan pronto como estemos listos.
+        </div>
+        <div id="waitlist-error" class="hidden rounded-lg border border-red-200 bg-red-50/50 p-4 text-sm text-red-800 backdrop-blur-sm">
+          Hubo un problema al registrar tu correo. Por favor, intenta de nuevo.
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<script>
+  const form = document.querySelector('#waitlist-inline-form') as HTMLFormElement;
+  const submitBtn = document.querySelector('#waitlist-submit-btn') as HTMLButtonElement;
+  const statusContainer = document.querySelector('#waitlist-status');
+  const successMsg = document.querySelector('#waitlist-success');
+  const errorMsg = document.querySelector('#waitlist-error');
+
+  if (form && submitBtn && statusContainer && successMsg && errorMsg) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Reset states
+      statusContainer.classList.add('hidden');
+      successMsg.classList.add('hidden');
+      errorMsg.classList.add('hidden');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+
+      const formData = new FormData(form);
+      const email = (formData.get('email') as string || '').trim();
+
+      try {
+        const response = await fetch('/api/waitlist', {
+          body: JSON.stringify({ email }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+        });
+
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.error || 'Error al unirse a la lista de espera');
+        }
+
+        // Mostrar Éxito
+        statusContainer.classList.remove('hidden');
+        successMsg.classList.remove('hidden');
+        form.reset();
+      } catch (error) {
+        statusContainer.classList.remove('hidden');
+        errorMsg.classList.remove('hidden');
+        if (error instanceof Error) {
+          errorMsg.textContent = error.message;
+        }
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Unirse';
+      }
+    });
+  }
+</script>
 
 <style>
   .waitlist-fade-up {

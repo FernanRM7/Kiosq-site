@@ -1,5 +1,4 @@
 ---
-import { Button } from '@/components/ui/button';
 ---
 
 <div class="space-y-8 text-center">
@@ -13,12 +12,12 @@ import { Button } from '@/components/ui/button';
     </p>
   </div>
 
-  <div class="flex flex-wrap justify-center gap-4">
-    <Button variant="outline" className="font-mono text-base px-6">
+<div class="flex flex-wrap justify-center gap-4">
+    <a href="/contact" class="inline-flex items-center justify-center rounded-sm border border-border bg-background px-6 py-2.5 font-mono text-base font-medium text-foreground transition-colors hover:bg-muted">
       REQUEST A DEMO
-    </Button>
-    <Button className="font-mono text-base px-6 bg-primary text-primary-foreground hover:bg-primary/90">
+    </a>
+    <a href="/waitlist" class="inline-flex items-center justify-center rounded-sm bg-primary px-6 py-2.5 font-mono text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90">
       JOIN WAITLIST
-    </Button>
+    </a>
   </div>
 </div>
