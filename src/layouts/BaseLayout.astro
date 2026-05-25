@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
 
 interface Props {
   title?: string;
@@ -30,6 +31,7 @@ const { title = 'Kiosqo', fullWidth = false } = Astro.props;
       <main class="min-h-screen">
         <div class="mx-auto px-(--spacing-container) sm:px-6 lg:px-8"
             style={`max-width: var(--container-width)`}>
+           <Navbar /> 
           <slot />
         </div>
       </main>
