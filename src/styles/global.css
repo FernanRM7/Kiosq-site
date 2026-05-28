@@ -1,22 +1,26 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+
+/* Utilidad para hover de links principales usando tokens */
+.link-hover-primary {
+  transition: color 0.2s;
+  color: var(--muted-foreground);
+}
+.link-hover-primary:hover,
+.link-hover-primary:focus {
+  color: var(--primary);
+}
+@apply transition-colors hover:text-primary;
+
 @import "@fontsource-variable/geist";
 @import "@fontsource-variable/geist-mono";
 
-/* Custom font declaration for Instrument Serif */
-@font-face {
-  font-family: "Instrument Serif";
-  src: url("/fonts/instrument-Serif.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-heading: "Instrument Serif", serif;
-  --font-body: "Geist", sans-serif;
-  --font-sans: "Geist", sans-serif;
+  --font-heading: "Instrument Serif Variable", serif;
+  --font-body: "Geist variable", sans-serif;
   --font-mono: "Geist Mono", monospace;
   --container-width: 80rem;
   --spacing-container: 1rem;
@@ -137,7 +141,7 @@
     @apply font-sans;
   }
   body {
-    @apply bg-background text-foreground font-body;
+    @apply font-body bg-background text-foreground;
   }
   h1,
   h2,

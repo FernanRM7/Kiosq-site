@@ -11,15 +11,12 @@ const {
 } = Astro.props;
 ---
 
-<section class="mx-auto w-full px-4 py-16 sm:px-6 lg:px-8">
-  <div class="mx-auto max-w-(--container-width) space-y-12 lg:space-y-16">
+<section class="hero-shell">
+  <div class="mx-auto w-full py-16">
     <!-- Hero Text Section -->
     <div class="hero-text-fade">
       <HeroText />
     </div>
-
-    <!-- Divider -->
-    <div class="h-px bg-border" />
 
     <!-- Hero Image Section -->
     <div class="hero-image-fade">
@@ -33,8 +30,28 @@ const {
     animation: heroTextFade 800ms ease both;
   }
 
+  .hero-shell {
+    margin-inline: calc(var(--spacing-container) * -1);
+    width: calc(100% + (var(--spacing-container) * 2));
+    max-width: var(--container-width);
+  }
+
   .hero-image-fade {
     animation: heroImageFade 800ms ease both 200ms;
+  }
+
+  @media (min-width: 40rem) {
+    .hero-shell {
+      margin-inline: -1.5rem;
+      width: calc(100% + 3rem);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .hero-shell {
+      margin-inline: -2rem;
+      width: calc(100% + 4rem);
+    }
   }
 
   @keyframes heroTextFade {

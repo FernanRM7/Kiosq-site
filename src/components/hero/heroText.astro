@@ -1,23 +1,62 @@
 ---
+import { buttonVariants } from '../ui/button';
 ---
 
-<div class="space-y-8 text-center">
-  <div class="space-y-6">
-    <h1 class="text-balance text-5xl leading-tight font-heading sm:text-6xl lg:text-7xl">
-      Gestiona tu negocio sin complicaciones
+<section class="space-y-8 text-center">
+  <header class="space-y-6">
+    <h1 class="hero-text-animated text-balance text-5xl leading-tight font-heading sm:text-6xl lg:text-7xl">
+        Gestiona tu negocio sin <br />
+        complicaciones
     </h1>
     <p class="mx-auto max-w-3xl text-base text-muted-foreground sm:text-lg">
       Implementa en minutos, agiliza operaciones y aumenta la eficiencia con un POS diseñado para
       adaptarse a tu negocio.
     </p>
-  </div>
+  </header>
 
-<div class="flex flex-wrap justify-center gap-4">
-    <a href="/contact" class="inline-flex items-center justify-center rounded-sm border border-border bg-background px-6 py-2.5 font-mono text-base font-medium text-foreground transition-colors hover:bg-muted">
+  <div class="flex flex-wrap justify-center gap-4">
+    <a
+      href="/contact"
+      class={buttonVariants({
+        className: 'font-mono font-thin text-base',
+        variant: 'secondary',
+      })}
+    >
       REQUEST A DEMO
     </a>
-    <a href="/waitlist" class="inline-flex items-center justify-center rounded-sm bg-primary px-6 py-2.5 font-mono text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90">
+    <a
+      href="/waitlist"
+      class={buttonVariants({
+        className: 'font-mono font-thin text-base',
+      })}
+    >
       JOIN WAITLIST
     </a>
   </div>
-</div>
+<script type="module" src="/hero-motion/heroText.motion.js"></script>
+</section>
+
+<style>
+  :global(.hero-text-prepared .hero-text-character) {
+    display: inline-block;
+    opacity: 0;
+    transform: translate3d(0, 1.1em, 0);
+    transition:
+      opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--hero-character-delay);
+  }
+
+  :global(.hero-text-visible .hero-text-character) {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.hero-text-prepared .hero-text-character) {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>

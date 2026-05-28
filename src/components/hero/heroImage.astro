@@ -6,33 +6,50 @@ interface Props {
 const {
   tabs = ['Inventario con escaneo', 'Registro de ventas', 'Pagos', 'Proveedores']
 } = Astro.props;
+
+const images = [
+  { alt: "Inventario con escaneo", src: "/images/mockup1.webp" },
+  { alt: "Registro de ventas", src: "/images/mockup2.webp" },
+  { alt: "Pagos", src: "/images/mockup3.webp" },
+  { alt: "Proveedores", src: "/images/mockup4.webp" },
+];
 ---
 
-<div class="w-full space-y-4">
+<section class="mx-auto w-full">
   <!-- Tabs/Features -->
-  <div class="border-b border-border">
+  <nav class="border border-border" aria-label="Características principales">
     <div class="grid grid-cols-4 text-center text-sm font-body text-muted-foreground">
-      {tabs.map((tab) => (
-        <div class="border-r border-border px-4 py-3 last:border-r-0">
-          {tab}
-        </div>
-      ))}
+      {tabs.map((tab, idx) => (
+              <div class="hero-carousel-tab border-r border-border px-4 py-3 last:border-r-0 relative cursor-pointer" tabindex="0">
+                {tab}
+                <div class="hero-carousel-progress absolute left-0 bottom-0 h-1 w-0 rounded bg-primary transition-all"></div>
+              </div>
+            ))}
     </div>
-  </div>
+  </nav>
 
-  <!-- Image with gradient background -->
-  <div class="relative overflow-hidden rounded-lg bg-gradient-to-br from-primary via-blue-600 to-teal-500 py-8">
-    <div class="relative flex items-center justify-center">
-      <img
-        src="/references/Image Hero.jpg"
-        alt="Kiosq Dashboard"
-        class="relative w-full max-w-4xl h-auto rounded-lg shadow-2xl mx-auto"
-      />
-    </div>
+  <!-- Single image for carousel -->
+  <div class="w-full flex items-center justify-center">
+    <img
+      id="hero-carousel-img"
+      src={images[0].src}
+      alt={images[0].alt}
+      width="1200"
+      height="700"
+      class="w-full h-auto rounded-xs shadow-2xl mt-0 transition-opacity duration-500"
+      fetchpriority="high"
+      style="opacity:1;"
+    />
   </div>
 
   <!-- Trust text -->
-  <p class="text-center text-sm text-muted-foreground py-6 font-body">
+  <p class="text-center text-sm text-muted-foreground py-6 font-body border border-border rounded">
     Con la confianza de más de 20 dueños y gerentes de comercios independientes.
   </p>
-</div>
+  <script
+    type="application/json"
+    id="hero-carousel-images"
+    set:html={JSON.stringify(images)}
+  ></script>
+  <script type="module" src="/hero-motion/heroImage.motion.js"></script>
+</section>

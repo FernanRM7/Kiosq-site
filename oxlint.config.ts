@@ -53,6 +53,7 @@ export default defineConfig({
     "@typescript-eslint/no-unused-vars": "error",
     eqeqeq: "error",
     "func-style": "off",
+    "import/consistent-type-specifier-style": "off",
     "import/no-duplicates": "off",
     "no-console": "warn",
     "no-duplicate-imports": "off",
