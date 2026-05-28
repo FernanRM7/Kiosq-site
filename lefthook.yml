@@ -16,7 +16,7 @@ commit-msg:
     validate-format:
       run: |
         MSG=$(cat {1})
-        PATTERN="^(feat|fix|chore)(\(.+\))?: .{10,}$"
+        PATTERN="^(feat|fix|chore|refactor)(\(.+\))?: .{10,}$"
         if ! echo "$MSG" | grep -qE "$PATTERN"; then
           echo ""
           echo "  Formato de commit inválido."
@@ -28,6 +28,7 @@ commit-msg:
           echo "    feat      Nueva funcionalidad"
           echo "    fix       Corrección de bug"
           echo "    chore     Tareas de mantenimiento"
+          echo "    refactor  Refactorización de código"
           echo ""
           exit 1
         fi
@@ -37,7 +38,7 @@ pre-push:
     validate-branch:
       run: |
         BRANCH=$(git rev-parse --abbrev-ref HEAD)
-        PATTERN="^(feat|fix|chore)/.+"
+        PATTERN="^(feat|fix|chore|refactor)/.+"
         EXCLUDED="^(main|master|develop|staging)$"
         if echo "$BRANCH" | grep -qE "$EXCLUDED"; then
           exit 0
